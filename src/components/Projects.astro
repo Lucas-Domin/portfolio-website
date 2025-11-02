@@ -14,6 +14,9 @@ const { projects } = Astro.props;
   {
     projects.map(({ name, summary, image, linkPreview, linkSource }, index) => {
       const top = 98 + index * 40;
+      const hasSource = linkSource && linkSource.trim() !== '';
+      const hasPreview = linkPreview && linkPreview.trim() !== '';
+      
       return (
         <div
           style={`top: ${top}px;`}
@@ -26,20 +29,8 @@ const { projects } = Astro.props;
               </h3>
               <p class="text-base text-neutral">{summary}</p>
               <div class="flex gap-5 pt-10 text-white">
-                <a
-                  href={linkSource}
-                  target="_blank"
-                  class="after:relative after:bottom-[-5px] after:content-[url(/external.svg)] hover:underline"
-                >
-                  Source
-                </a>
-                <a
-                  href={linkPreview}
-                  target="_blank"
-                  class="after:relative after:bottom-[-5px] after:content-[url(/external.svg)] hover:underline"
-                >
-                  Preview
-                </a>
+                {hasSource && <a href={linkSource} target="_blank" class="after:relative after:bottom-[-5px] after:content-[url(/external.svg)] hover:underline">Source</a>}
+                {hasPreview && <a href={linkPreview} target="_blank" class="after:relative after:bottom-[-5px] after:content-[url(/external.svg)] hover:underline">Preview</a>}
               </div>
             </div>
             <div class="flex items-end justify-end overflow-hidden">
